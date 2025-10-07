@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url(./assets/Pic1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.To-Do-Container {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.ParentContainer {
+  /* border: 2px solid red; */
+  padding: 70px;
+  background-color: rgba(237, 102, 34, 0.658);
+  border-radius: 20px;
+  /* box-shadow: 10px 5px 10px 5px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+.ToDoHeading {
+  color: white;
+  font-weight: bold;
+}
+#toDoInput {
+  border-radius: 5px;
+  width: 300px;
+  height: 40px;
+  border: none;
+}
+.ToDoButton {
+  padding: 10px;
+  border-radius: 7px;
+  width: 5rem;
+  margin-left: 10px;
+  background-color: rgb(237, 102, 34);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 1px rgba(0, 0, 0, 0.3);
+}
+.ToDoButton:hover {
+  background-color: rgb(182, 79, 28);
+}
+
+.TaskAdded {
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.Delete-button {
+  border: none;
+  margin-left: 10px;
+  border-radius: 4px;
+  background-color: red;
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+}
+.Delete-button:hover {
+  background-color: rgb(105, 17, 17);
+}
+#Check-box {
+  margin-left: 10px;
+  margin-top: 20px;
+  width: 30px;
+  height: 20px;
+  accent-color: rgb(116, 61, 11);
+}
