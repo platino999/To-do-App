@@ -10,7 +10,7 @@ body {
 }
 
 .To-Do-Container {
-  border: 3px solid black;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
