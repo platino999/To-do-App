@@ -71,7 +71,9 @@ body {
 }
 #Check-box {
   margin-left: 10px;
-  margin-top: 20px;
+  position: absolute;
+padding: 0;
+  align-self: center;
   width: 30px;
   height: 20px;
   accent-color: rgb(116, 61, 11);
