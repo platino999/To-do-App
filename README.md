@@ -23,7 +23,12 @@ A simple, functional To-Do List built with **React + TypeScript** that allows us
 - CSS (or your styling method)
 
 ---
+## 🔗 Links
 
+- **Live Demo:** [https://todoapp-eta-hazel.vercel.app/](https://todoapp-eta-hazel.vercel.app/)
+- **Source Code:** [https://github.com/platino999/To-do-App](https://github.com/platino999/To-do-App)
+
+---
 ## 📦 Installation
 
 ```bash
@@ -31,3 +36,6 @@ git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 npm install
 npm start
+---
+
+
