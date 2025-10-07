@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Task {
   text: string;
@@ -7,6 +7,29 @@ interface Task {
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    // Load saved tasks from localStorage on mount
+    const saved = localStorage.getItem("Saved");
+    console.log("Loaded from localStorage:", saved);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as Task[];
+        setTasks(parsed);
+      } catch (e) {
+        console.error("Failed to parse saved tasks:", e);
+      }
+    }
+    setIsInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem("Saved", JSON.stringify(tasks));
+      console.log("Saved to localStorage:", tasks);
+    }
+  }, [tasks, isInitialized]);
 
   const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -16,24 +39,26 @@ const ToDoList = () => {
     const inputElement = document.getElementById(
       "toDoInput"
     ) as HTMLInputElement;
-    const inputValue = inputElement.value;
+    const inputValue = inputElement.value.trim();
 
-    if (inputValue.trim() !== "") {
-      const formattedTask = capitalizeFirstLetter(inputValue);
+    if (inputValue === "") return;
 
-      const isDuplicate = tasks.some(
-        (t) => t.text.toLowerCase() === formattedTask.toLowerCase()
-      );
+    const formattedTask = capitalizeFirstLetter(inputValue);
 
-      if (!isDuplicate) {
-        setTasks((prevTasks) => [
-          ...prevTasks,
-          { text: formattedTask, completed: false },
-        ]);
-      } else {
-        alert("Task already exists!");
-      }
+    const isDuplicate = tasks.some(
+      (t) => t.text.toLowerCase() === formattedTask.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      alert("Task already exists!");
+      inputElement.value = "";
+      return;
     }
+
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { text: formattedTask, completed: false },
+    ]);
 
     inputElement.value = "";
   };
@@ -50,58 +75,57 @@ const ToDoList = () => {
     setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
   };
 
-  return (
-    <>
-      <div className="To-Do-Container">
-        <div className="ParentContainer">
-          <h1 className="ToDoHeading">To-Do List App</h1>
-          <div className="InputandButton">
-            <input
-              type="text"
-              name="toDoInput"
-              id="toDoInput"
-              placeholder="Add a new task"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  addTask();
-                }
-              }}
-            />
-            <button type="button" className="ToDoButton" onClick={addTask}>
-              Add
-            </button>
-          </div>
+  // 3. Finally, the JSX UI
 
-          <ul>
-            {tasks.map((task, index) => (
-              <li key={index} className="TaskAdded">
-                <span
-                  style={{
-                    marginLeft: "8px",
-                    textDecoration: task.completed ? "line-through" : "none",
-                    textDecorationColor: task.completed ? "black" : "inherit",
-                  }}
-                >
-                  {task.text}
-                </span>
-                <button
-                  className="Delete-button"
-                  onClick={() => deleteTask(index)}
-                >
-                  Delete
-                </button>
-                <input
-                  id="Check-box"
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => toggleTaskCompletion(index)}
-                />
-              </li>
-            ))}
-          </ul>
+  return (
+    <div className="To-Do-Container">
+      <div className="ParentContainer">
+        <h1 className="ToDoHeading">To-Do List App</h1>
+        <div className="InputandButton">
+          <input
+            type="text"
+            id="toDoInput"
+            placeholder="Add a new task"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                addTask();
+              }
+            }}
+          />
+          <button className="ToDoButton" onClick={addTask}>
+            Add
+          </button>
         </div>
+
+        <ul id="ParentUnordered">
+          {tasks.map((task, index) => (
+            <li key={index} className="TaskAdded">
+              <span
+                style={{
+                  marginLeft: "8px",
+                  textDecoration: task.completed ? "line-through" : "none",
+                  textDecorationColor: task.completed ? "black" : "inherit",
+                }}
+              >
+                {task.text}
+              </span>
+              <button
+                className="Delete-button"
+                onClick={() => deleteTask(index)}
+              >
+                Delete
+              </button>
+              <input
+                type="checkbox"
+                id="Check-box"
+                checked={task.completed}
+                onChange={() => toggleTaskCompletion(index)}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
-    </>
+    </div>
   );
 };
 
