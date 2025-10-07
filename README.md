@@ -33,8 +33,8 @@ npm install
 npm start
 
 
-#### 🔗 Links
+##🔗 Links
 
-* **Live Demo:** [https://todoapp-eta-hazel.vercel.app/](https://todoapp-eta-hazel.vercel.app/)
-* **Source Code:** [https://github.com/platino999/To-do-App](https://github.com/platino999/To-do-App)
+**Live Demo:** https://todoapp-eta-hazel.vercel.app/
+**Source Code:** https://github.com/platino999/To-do-App
 
