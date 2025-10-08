@@ -32,8 +32,8 @@ A simple, functional To-Do List built with **React + TypeScript** that allows us
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/platino999/To-do-App
+cd To-do-App
 npm install
 npm start
 ---
